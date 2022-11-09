@@ -47,7 +47,6 @@
 #include "stm8s.h"
 #include "stm8s_uart1.h"
 #include "stm8s_utils.h"
-#include "stm8s_private.h"
 
 
 /* Macros ---------------------------------------------------------------------*/
@@ -83,6 +82,7 @@ void Serial_begin_custom(uint32_t baudRate,
 void Serial_write(uint8_t data);						
 void Serial_print(uint8_t* data, uint8_t len);
 void Serial_print_int(long data);
+void Serial_print_uint(uint32_t data);
 void Serial_print_float(double data);
 void Serial_println(uint8_t* data, uint8_t len);
 int Serial_available(void);

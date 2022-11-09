@@ -264,6 +264,33 @@ void Serial_print_int(long data)
 }
 
 
+/** @brief Writes an unsigned integer/long to the Serial.
+ *
+ *  @param data unsigned Integer/long to be written to Serial.
+ *  @retval None
+ */
+void Serial_print_uint(uint32_t data) 
+{
+	int n = 0;
+	char buffer[10];
+	
+	if (data == 0) Serial_write('0');
+	
+	while(data > 0) {
+		buffer[n] = data%10 + '0';
+		data /= 10;
+		n++;
+	}
+	
+	while(n > 0) {
+		Serial_write(buffer[n-1]);
+		n--;
+	}
+	
+	Serial_write('\0');
+}
+
+
 /** @brief Writes an float/double to the Serial.
  *
  *  @param data float/double to be written to Serial.
@@ -298,6 +325,7 @@ void Serial_print_float(const double data)
 	while(n > 0) {
 		frac *= 10;
 		Serial_write(((uint8_t) frac*10) + '0');
+		n--;
 	}
 	
 	Serial_write('\0');
