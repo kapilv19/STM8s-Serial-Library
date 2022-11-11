@@ -299,36 +299,20 @@ void Serial_print_uint(uint32_t data)
 void Serial_print_float(const double data)
 {
 	long intg = (long) data;
-	double frac = data - intg;
+	double frac = (data - intg);
 	
-	char buffer[10];
-	int n = 0;
-	
-	if (intg == 0) Serial_write('0');
-	else if (intg < 0) Serial_write('-');
-	
-	while(intg > 0) {
-		buffer[n] = intg%10;
-		intg /= 10;
-		n++;
-	}
-	
-	while(n > 0) {
-		Serial_write(buffer[n-1]);
-		n--;
-	}
-	
-	Serial_write('.');
-	
-	n = SERIAL_DOUBLE_PECISION;
+	int n = SERIAL_DOUBLE_PECISION;
 	
 	while(n > 0) {
 		frac *= 10;
-		Serial_write(((uint8_t) frac*10) + '0');
 		n--;
 	}
 	
-	Serial_write('\0');
+	Serial_print_int(intg);
+	
+	Serial_write('.');
+	
+	Serial_print_int(frac);
 }
 
 
